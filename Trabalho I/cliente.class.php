@@ -1,5 +1,5 @@
 <?php 
-class Cliente(){
+class Cliente{
     public $matricula;
     public $nome;
     public $telefone

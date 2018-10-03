@@ -1,18 +1,20 @@
 <?php
-class Livro(){
+class Livro{
+    public $idLivro;
     public $isbn;
     public $nome;
-    public $autor;
     public $editora;
     public $ano;
+    public $idAutor;
 
-    public function __construct($isbn,$nome,$autor,$editora,$ano)
+    public function __construct($idLivro,$isbn,$nome,$editora,$ano,$idAutor)
     {
+        $this->idLivro = $idLivro;
         $this->isbn = $isbn;
         $this->nome = $nome;
-        $this->autor = $autor;
         $this->editora = $editora;
         $this->ano = $ano;
+        $this->idAutor = $idAutor;
     }
 
     

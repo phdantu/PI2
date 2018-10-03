@@ -1,0 +1,3 @@
+RewriteEngine On # Turn on the rewriting engine
+RewriteRule ^livro/?$ livro.php [NC,L]
+RewriteRule ^livro/([0-9]+)/?$ livro.php?id=$1 [NC,L]
