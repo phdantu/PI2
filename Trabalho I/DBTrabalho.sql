@@ -35,3 +35,5 @@ INSERT INTO autor(nome,pais) VALUES ("JK Rowling","England");
 INSERT INTO autor(nome,pais) VALUES ("Cristopher Paolini","USA");
 
 INSERT INTO livro(isbn,nome,editora,ano,idAutor) VALUES (123456789,"Eldest","Rocco",2006,"2");
+
+INSERT INTO cliente(matricula,nome,telefone) VALUES (123,"Danton",5112121212);

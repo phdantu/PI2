@@ -1,7 +1,6 @@
 <?php
     include_once 'Livro.php';
 	include_once 'PDOFactory.php';
-
     class LivroDAO
     {
         //INSERIR OK

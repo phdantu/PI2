@@ -6,7 +6,6 @@ class Livro{
     public $editora;
     public $ano;
     public $idAutor;
-
     public function __construct($idLivro,$isbn,$nome,$editora,$ano,$idAutor)
     {
         $this->idLivro = $idLivro;
@@ -16,7 +15,6 @@ class Livro{
         $this->ano = $ano;
         $this->idAutor = $idAutor;
     }
-
     
 }
 ?>
