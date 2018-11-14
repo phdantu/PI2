@@ -52,9 +52,16 @@
     		$pdo = PDOFactory::getConexao();
 	    	$comando = $pdo->prepare($query);
     		$comando->execute();
-            $livro=array();	
+            $livro=array();
+
+            //CONFERIR E TESTAR
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
-			    $livro[] = new Livro($row->idLivro,$row->isbn,$row->nome,$row->editora,$row->ano,$row->idAutor);
+                $queryAutor = 'SELECT * FROM autor WHERE idAutor=:idAutor';
+                $comandoAutor = $pdo->prepare($queryAutor);
+                $comandoAutor->bindParam(":idAutor",$row->idAutor);
+                $rowAutor = $comandoAutor->fetch(PDO::FETCH_OBJ);
+                $autor = new Autor($rowAutor->idAutor,$rowAutor->nome,$rowAutor->pais);
+			    $livro[] = new Livro($row->idLivro,$row->isbn,$row->nome,$row->editora,$row->ano,$autor);
             }
             return $livro;
         }
