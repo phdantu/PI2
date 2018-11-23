@@ -18,7 +18,7 @@
             $cliente->idCliente = $pdo->lastInsertId();
             return $cliente;
         }
-        //DELETE OK
+        
         public function deletar($id)
         {
             

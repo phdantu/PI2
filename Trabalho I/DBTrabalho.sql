@@ -36,10 +36,4 @@ INSERT INTO autor(nome,pais) VALUES ("Cristopher Paolini","USA");
 
 INSERT INTO livro(isbn,nome,editora,ano,idAutor) VALUES (123456789,"Eldest","Rocco",2006,"2");
 
-
-
-INSERT INTO cliente(matricula,nome,telefone) VALUES (321321,"Danton",321321321);
-INSERT INTO cliente(matricula,nome,telefone) VALUES (13213,"Vitorio",34534534534);
-INSERT INTO cliente(matricula,nome,telefone) VALUES (1231321,"Bryan",5345453353);
-INSERT INTO cliente(matricula,nome,telefone) VALUES (321321,"Luciano",534535345345);
-INSERT INTO cliente(matricula,nome,telefone) VALUES (12345,"Ries",123231321312);
+INSERT INTO cliente(matricula,nome,telefone) VALUES (123,"Danton",5112121212);

@@ -65,7 +65,7 @@
 				if(verificaSeEstaVazio($id) || verificaSeEstaVazio($var->idCliente) || verificaSeEstaVazio($var->matricula) || verificaSeEstaVazio($var->nome) || verificaSeEstaVazio($var->telefone)){
 					echo "Não é possível editar campos vazios.";
 				}else{
-					$cliente = new Cliente($id, $var->matricula, $var->nome,$var->telefone);
+					$cliente = new Cliente($var->idCliente, $var->matricula, $var->nome,$var->telefone);
 
 					$dao= new clienteDAO;
 					$dao->atualizar($cliente);

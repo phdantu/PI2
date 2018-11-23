@@ -1,0 +1,106 @@
+<script type="text/javascript">
+
+    function buscar(){
+      $(function(){
+           $(".input-search").keyup(function(){
+               //pega o css da tabela 
+               var tabela = $(this).attr('alt');
+               if( $(this).val() != ""){
+                   $("."+tabela+" tbody>tr").hide();
+                   $("."+tabela+" td:contains-ci('" + $(this).val() + "')").parent("tr").show();
+               } else{
+                   $("."+tabela+" tbody>tr").show();
+               }
+           }); 
+       });
+       $.extend($.expr[":"], {
+           "contains-ci": function(elem, i, match, array) {
+               return (elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+           }
+       });
+    }
+       
+   </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testando</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.quick.search.js"></script>
+    <script type="text/javascript" src="jquery/jquery.js"></script>
+       
+</head>
+<body>
+        <div id="wrapper">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                   <ul class="sidebar-nav">
+                      <li class="sidebar-brand">
+                         <a href="index.php">
+                         Página Inicial
+                         </a>
+                      </li>
+                      <li>
+                         <a href="form_cadastraAutores.php">Cadastro de Autores</a>
+                      </li>
+                      <li>
+                         <a href="form_cadastraLivros.php">Cadastro de Livros</a>
+                      </li>
+                   </ul>
+                </div>
+                <!-- /#sidebar-wrapper -->
+                <!-- Page Content -->
+                <div id="page-content-wrapper">
+                <div class="container-fluid">
+                <body>
+                   <!-- Page Content -->
+                   <div class="container">
+                   <!-- Page Heading -->
+                   <h1 class="tituloBoasVindas">Bem-Vindo !</h1>
+                   <div>
+                      <a href="#menu-toggle" class="btn btn-secondary btn-menu" id="menu-toggle">Menu</a>
+                   </div>
+        <main>
+        <h2>Cadastro de Livros</h2>
+        <form id="formcadastro">
+            <label class="col-md-1" for="nome">Id:</label>    
+            <input class="col-md-2" type="text" id="idLivro"/> <br/>
+            <label class="col-md-1"for="imagem">ISBN:</label>    
+            <input class="col-md-2" type="text" id="isbn"/> <br/>
+            <label class="col-md-1"for="descricao">Nome:</label>    
+            <input class="col-md-2" type="text" id="nome"/> <br/>
+            <label class="col-md-1"for="uso">Editora:</label>    
+            <input class="col-md-2" type="text" id="editora"/> <br/>
+            <label class="col-md-1"for="uso">Ano:</label>    
+            <input class="col-md-2" type="text" id="ano"/> <br/>
+            <label class="col-md-1"for="uso">Autor:</label>    
+            <input class="col-md-2" type="text" id="idAutor"/> <br/><br/>
+            <input class="col-md-offset-3 col-md-2 btn btn-primary" type="submit" value="Cadastrar" /><br/><br/>
+        </form>
+        <h2>Tabela de Livros</h2>
+        <div id="tabelalivros"></div>
+
+    </main>
+    </div>
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
+    <script src="js/js.js"></script>
+</html>

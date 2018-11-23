@@ -36,9 +36,9 @@
             case 'POST':
 			$data = file_get_contents("php://input");
 			$var = json_decode($data);
-			if(verificaSeEstaVazio($var->idLivro) || verificaSeEstaVazio($var->isbn) || verificaSeEstaVazio($var->nome) || verificaSeEstaVazio($var->ano) || verificaSeEstaVazio($var->editora) || verificaSeEstaVazio($var->idAutor)){
-				echo "Não é possível inserir campos vazios.";
-			}else{
+			//if(verificaSeEstaVazio($var->idLivro) || verificaSeEstaVazio($var->isbn) || verificaSeEstaVazio($var->nome) || verificaSeEstaVazio($var->ano) || verificaSeEstaVazio($var->editora) || verificaSeEstaVazio($var->idAutor)){
+			//	echo "Não é possível inserir campos vazios.";
+			//}else{
 				$livro = new Livro($var->idLivro,$var->isbn, $var->nome, $var->editora,$var->ano,$var->idAutor);
 			
 				$dao= new LivroDAO;
@@ -47,7 +47,7 @@
 				header('HTTP/1.1 201 Created');
 				header('Content-Type:application/json');
 				echo($livro_json);
-			}
+			//}
 			
 			break;
 		case 'PUT':
