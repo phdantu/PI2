@@ -1,4 +1,21 @@
 var formcadastro = document.querySelector("#formcadastro");
+document.getElementById("btnAlterar").addEventListener("click", function pegaDados(){
+    formcadastro.onsubmit = function(event){
+        event.preventDefault();
+        console.log("Trata formulario");
+        
+        var livro = {};
+        livro.idLivro = document.querySelector("#idLivro").value;
+        livro.isbn = document.querySelector("#isbn").value;
+        livro.nome = document.querySelector("#nome").value;
+        livro.editora = document.querySelector("#editora").value;
+        livro.ano = document.querySelector("#ano").value;
+        livro.idAutor = document.querySelector("#idAutor").value;
+        
+        //console.log(livro);
+        montaCamposAlterarEPreenche(livro);
+    }
+});
 formcadastro.onsubmit = function(event){
     event.preventDefault();
     console.log("Trata formulario");
@@ -20,12 +37,10 @@ function enviarLivro(livro){
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 201) {
             //Tratar as ações após a comunicação com o servidor
-            console.log("Chegou aqui");
             limparFormulario();
             carregarLivros();
         }
     };
-    console.log("PULOU ALI");
     xhttp.open("POST", "http://localhost/PI2/Trabalho%20I/livro", true);
     xhttp.setRequestHeader("Content-Type","application/json")
     xhttp.send(JSON.stringify(livro));
@@ -38,18 +53,18 @@ function limparFormulario(){
     document.querySelector("#editora").value=""; 
     document.querySelector("#ano").value=""; 
     document.querySelector("#idAutor").value="";
-    document.querySelector("#idLivroAltera").value="";
+
+    var btn = document.getElementById("btnAlterar");
+    
+    var attr = document.createAttribute("disabled");
+    btn.attributes.setNamedItem(attr);
+
+    /*document.querySelector("#idLivroAltera").value="";
     document.querySelector("#isbnAltera").value="";
     document.querySelector("#nomeAltera").value="";
     document.querySelector("#editoraAltera").value=""; 
     document.querySelector("#anoAltera").value=""; 
-    document.querySelector("#idAutorAltera").value=""; 
-    var tempor = document.getElementById("camposAlteraLivro");
-    var AttTemp = document.createAttribute("hidden");
-    AttTemp.value="true";
-    console.log(tempor);
-    console.log(AttTemp);
-    tempor.setAttribute(AttTemp);
+    document.querySelector("#idAutorAltera").value="";  */
 
 }
 
@@ -92,7 +107,7 @@ function montarTabela(livros){
         str+="<td>"+livros[i].ano+"</td>";
         str+="<td>"+livros[i].idAutor+"</td>";
         str+="<td><button onclick='CarregaAlterarLivro("+livros[i].idLivro+")' id='botaoAlterar' type='button' class='btn btn-primary col-md-12'>Alterar</button></td>";
-        str+="<td><button onclick='DeletarLivro()' id='botaoDeletar' type='button' class='btn btn-danger col-md-12'>Deletar</button></td>";
+        str+="<td><button onclick='DeletarLivro("+livros[i].idLivro+")' id='botaoDeletar' type='button' class='btn btn-danger col-md-12'>Deletar</button></td>";
         str+="</tr>";
         str+="</tbody>";
     } 
@@ -105,6 +120,12 @@ function montarTabela(livros){
 }
 function CarregaAlterarLivro(valorLivro){
     console.log(valorLivro);
+    
+    var btn = document.getElementById("btnAlterar");
+    console.log(btn);
+    if(document.getElementById("btnAlterar").attributes["disabled"]){
+        btn.attributes.removeNamedItem("disabled");
+    }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -115,7 +136,7 @@ function CarregaAlterarLivro(valorLivro){
     xhttp.send();
 }
 function montaCampos(livro){
-    var string="";
+    /* var string="";
     string+='<form id="formCadastroAlterar">';
     string+='<label class="col-md-1" for="nome">Id:</label>';    
     string+='<input class="col-md-2" type="text" id="idLivroAltera"/> <br/>';
@@ -130,14 +151,21 @@ function montaCampos(livro){
     string+='<label class="col-md-1"for="autor">Autor:</label>';
     string+='<input class="col-md-2" type="text" id="idAutorAltera"/> <br/><br/>';
     string+='<input class="col-md-offset-3 col-md-2 btn btn-primary" type="submit"/><br/><br/>';
-    string+='</form>';
-    montaCamposAlterarEPreenche(livro,string);
+    string+='</form>'; */
 
+    document.querySelector("#idLivro").value=livro.idLivro;
+    document.querySelector("#isbn").value=livro.isbn;
+    document.querySelector("#nome").value=livro.nome;
+    document.querySelector("#editora").value=livro.editora;
+    document.querySelector("#ano").value=livro.ano;
+    document.querySelector("#idAutor").value=livro.idAutor;
+
+    //montaCamposAlterarEPreenche(livro);
 }
-function montaCamposAlterarEPreenche(livro,string){
+function montaCamposAlterarEPreenche(livro){
     
     if(livro != null){
-        var camposAlteraLivro = document.querySelector("#camposAlteraLivro");
+        /* var camposAlteraLivro = document.querySelector("#camposAlteraLivro");
         camposAlteraLivro.innerHTML = string;
         document.querySelector("#idLivroAltera").value=livro.idLivro;
         document.querySelector("#isbnAltera").value=livro.isbn;
@@ -146,7 +174,7 @@ function montaCamposAlterarEPreenche(livro,string){
         document.querySelector("#anoAltera").value=livro.ano;
         document.querySelector("#idAutorAltera").value=livro.idAutor;
 
-        var formCadastroAlterar = document.querySelector("#formCadastroAlterar");
+        var formCadastroAlterar = document.querySelector("#formcadastro");
         formCadastroAlterar.onsubmit = function(event){
         event.preventDefault();
 
@@ -156,10 +184,11 @@ function montaCamposAlterarEPreenche(livro,string){
         livro.nome = document.querySelector("#nomeAltera").value;
         livro.editora = document.querySelector("#editoraAltera").value;
         livro.ano = document.querySelector("#anoAltera").value;
-        livro.idAutor = document.querySelector("#idAutorAltera").value;
+        livro.idAutor = document.querySelector("#idAutorAltera").value; */
         
         console.log(livro);
         AlteraLivro(livro);
+        //}
     }
 }
 function AlteraLivro(livro){
@@ -176,14 +205,21 @@ function AlteraLivro(livro){
     xhttp.send(JSON.stringify(livro));
 }
 
-}
 
-
-function DeletarLivro(){
-    var idLivroDeletar = document.querySelector("#botaoDeletar").value;
-
-    limparFormulario();
-    carregarLivros();
+function DeletarLivro(valorLivro){
+    console.log(valorLivro);
+    var teste = confirm ("Tem certeza que deseja deletar o item "+valorLivro+"?");
+    if(teste == true){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                carregarLivros();
+            }
+        }
+    
+    xhttp.open("DELETE", "http://localhost/PI2/Trabalho%20I/livro/"+valorLivro, true);
+    xhttp.send();
+    }
 }
 //-------------------------------------------------------------------------------------
 /* var formcliente = document.querySelector("#formcliente");

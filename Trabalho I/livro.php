@@ -58,34 +58,27 @@
                 $data = file_get_contents("php://input");
                 //retira de json
 				$var = json_decode($data);
-				if(verificaSeEstaVazio($id) || verificaSeEstaVazio($var->isbn) || verificaSeEstaVazio($var->nome) || verificaSeEstaVazio($var->ano) || verificaSeEstaVazio($var->editora) || verificaSeEstaVazio($var->idAutor)){
-					echo "Não é possível atualizar campos vazios.";
-				}else{
 					$livro = new Livro($id, $var->isbn, $var->nome, $var->editora,$var->ano,$var->idAutor);
 					$dao= new LivroDAO;
 					$dao->atualizar($livro);
 					//transforma em json
 					$livro_json = json_encode($livro);
 					header('Content-Type:application/json');
-					echo($livro_json);	
-				}			
+					echo($livro_json);			
 			}
 			break;
 		case 'DELETE':
 			if(!empty($_GET["id"]))
 			{
 				$id=intval($_GET["id"]);
-				if(verificaSeEstaVazio($id)){
-					echo "Não é possível deletar sem inserir o ID.";
-				}else{
-					$dao= new LivroDAO;
-					$livro = $dao->buscarPorId($id);
-					$dao->deletar($id);				
-					
-					$livro_json = json_encode($livro);
-					header('Content-Type:application/json');
-					echo($livro_json);
-				}
+			
+				$dao= new LivroDAO;
+				$livro = $dao->buscarPorId($id);
+				$dao->deletar($id);				
+				
+				$livro_json = json_encode($livro);
+				header('Content-Type:application/json');
+				echo($livro_json);
 				
 			}
 			break;
