@@ -1,6 +1,6 @@
 <?php
-	include_once 'Livro.class.php';
-	include_once './DAO/LivroDAO.php';
+	include_once 'Autor.class.php';
+	include_once './DAO/AutorDAO.php';
 	
 	if (version_compare(phpversion(), '7.1', '>=')) {
     	ini_set( 'serialize_precision', -1 );
@@ -16,38 +16,34 @@
 			{
                 //converte para int
 				$id=intval($_GET["id"]);
-				$dao= new LivroDAO;		
-				$livro = $dao->buscarPorId($id);
-				
-				$daoAutor = new AutorDAO;
-				$daoAutor = $dao->buscarPorId($livro->idAutor);
+				$dao= new AutorDAO;		
+				$autor = $dao->buscarPorId($id);
 
-
-				$livro_json = json_encode($livro);
+				$autor_json = json_encode($autor);
 				header('Content-Type:application/json');
-				echo($livro_json);
+				echo($autor_json);
 			}
-			//senão, retorna todos os livros
+			//senão, retorna todos os Autors
 			else
 			{
-				$dao= new LivroDAO;
-				$livro =  $dao->listar();	
-				$livro_json = json_encode($livro);
+				$dao= new AutorDAO;
+				$autor =  $dao->listar();	
+				$autor_json = json_encode($autor);
 				header('Content-Type:application/json');
-				echo($livro_json);
+				echo($autor_json);
 			}
             break;
             case 'POST':
 			$data = file_get_contents("php://input");
 			$var = json_decode($data);
-				$livro = new Livro($var->idLivro,$var->isbn, $var->nome, $var->editora,$var->ano,$var->idAutor);
+				$autor = new Autor($id, $var->nome, $var->pais);
 			
-				$dao= new LivroDAO;
-				$livro = $dao->inserir($livro);
-				$livro_json = json_encode($livro);
+				$dao= new AutorDAO;
+				$autor = $dao->inserir($autor);
+				$autor_json = json_encode($autor);
 				header('HTTP/1.1 201 Created');
 				header('Content-Type:application/json');
-				echo($livro_json);
+				echo($autor_json);
 			
 			break;
 		case 'PUT':
@@ -58,13 +54,13 @@
                 $data = file_get_contents("php://input");
                 //retira de json
 				$var = json_decode($data);
-				$livro = new Livro($id, $var->isbn, $var->nome, $var->editora,$var->ano,$var->idAutor);
-				$dao= new LivroDAO;
-				$dao->atualizar($livro);
+				$autor = new Autor($id, $var->nome, $var->pais);
+				$dao= new AutorDAO;
+				$dao->atualizar($autor);
 				//transforma em json
-				$livro_json = json_encode($livro);
+				$autor_json = json_encode($autor);
 				header('Content-Type:application/json');
-				echo($livro_json);			
+				echo($autor_json);			
 			}
 			break;
 		case 'DELETE':
@@ -72,13 +68,13 @@
 			{
 				$id=intval($_GET["id"]);
 			
-				$dao= new LivroDAO;
-				$livro = $dao->buscarPorId($id);
+				$dao= new AutorDAO;
+				$autor = $dao->buscarPorId($id);
 				$dao->deletar($id);				
 				
-				$livro_json = json_encode($livro);
+				$autor_json = json_encode($autor);
 				header('Content-Type:application/json');
-				echo($livro_json);
+				echo($autor_json);
 				
 			}
 			break;
