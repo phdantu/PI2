@@ -12,7 +12,7 @@ document.getElementById("btnAlterar").addEventListener("click", function pegaDad
         livro.ano = document.querySelector("#ano").value;
         livro.idAutor = document.querySelector("#idAutor").value;
         
-        //console.log(livro);
+        console.log(livro);
         montaCamposAlterarEPreenche(livro);
     }
 });
@@ -59,7 +59,9 @@ function limparFormulario(){
     
     var attr = document.createAttribute("disabled");
     btn.attributes.setNamedItem(attr);
-    btnCadastro.attributes.removeNamedItem("disabled");
+    if(document.getElementById("btnCadastrar").attributes["disabled"]){
+        btnCadastro.attributes.removeNamedItem("disabled");
+    }
 
 }
 
@@ -167,6 +169,8 @@ function montaCamposAlterarEPreenche(livro){
         console.log(livro);
         AlteraLivro(livro);
         //}
+    }else{
+        console.log("VAZIO");
     }
 }
 function AlteraLivro(livro){
@@ -194,7 +198,6 @@ function DeletarLivro(valorLivro){
                 carregarLivros();
             }
         }
-    
     xhttp.open("DELETE", "http://localhost/PI2/Trabalho%20I/livro/"+valorLivro, true);
     xhttp.send();
     }

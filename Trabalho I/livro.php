@@ -19,8 +19,8 @@
 				$dao= new LivroDAO;		
 				$livro = $dao->buscarPorId($id);
 				
-				$daoAutor = new AutorDAO;
-				$daoAutor = $dao->buscarPorId($livro->idAutor);
+				//$daoAutor = new AutorDAO;
+				//$daoAutor = $dao->buscarPorId($livro->idAutor);
 
 
 				$livro_json = json_encode($livro);
